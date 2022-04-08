@@ -105,6 +105,10 @@ func (tm *TrafficManager) GatherLogs(ctx context.Context, request *connector.Log
 					podAndNs := fmt.Sprintf("%s.%s", pod.Name, pod.Namespace)
 					dlog.Debugf(ctx, "gathering logs for %s, yaml = %t", podAndNs, request.GetPodYaml)
 					logs, yml := getPodLog(ctx, podsAPI, pod, container, request.GetPodYaml)
+					if strings.HasPrefix(logs, "unable to retrieve container logs") || strings.HasSuffix(logs, "is waiting to start: PodInitializing") {
+						// Common errors that we don't care to propagate here
+						return
+					}
 					logWriteMutex.Lock()
 					resp.PodLogs[podAndNs] = logs
 					if request.GetPodYaml {
