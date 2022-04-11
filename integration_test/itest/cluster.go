@@ -236,11 +236,11 @@ func (s *cluster) withBasicConfig(c context.Context, t *testing.T) context.Conte
 	config.LogLevels.RootDaemon = logrus.DebugLevel
 
 	to := &config.Timeouts
-	to.PrivateAgentInstall = 180 * time.Second
-	to.PrivateApply = 120 * time.Second
+	to.PrivateAgentInstall = 20 * time.Minute
+	to.PrivateApply = 20 * time.Minute
 	to.PrivateClusterConnect = 60 * time.Second
 	to.PrivateEndpointDial = 10 * time.Second
-	to.PrivateHelm = 230 * time.Second
+	to.PrivateHelm = 20 * time.Minute
 	to.PrivateIntercept = 30 * time.Second
 	to.PrivateProxyDial = 30 * time.Second
 	to.PrivateRoundtripLatency = 5 * time.Second
